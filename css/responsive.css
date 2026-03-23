@@ -1,0 +1,72 @@
+/* ═══════════════════════════════════════════════════
+   COOKER — responsive.css
+   Media queries for tablet and mobile
+═══════════════════════════════════════════════════ */
+
+/* ─── Tablet (≤ 900px) ─── */
+@media (max-width: 900px) {
+  .hero-visual       { display:none; }
+  .hero-content      { max-width:100%; }
+  .nav-links,
+  .nav-auth          { display:none; }
+  .hamburger         { display:flex; }
+
+  .big-cards-grid {
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto;
+  }
+  .big-card.main     { grid-row:auto; }
+
+  .stats-row         { gap:30px; }
+}
+
+/* ─── Mobile (≤ 600px) ─── */
+@media (max-width: 600px) {
+  .hero-title        { font-size:3rem; }
+
+  .big-cards-grid    { grid-template-columns:1fr; }
+
+  .states-grid       { grid-template-columns:repeat(2,1fr); }
+
+  .browse-grid       { grid-template-columns:repeat(2,1fr); }
+
+  .equip-grid        { grid-template-columns:1fr 1fr; }
+
+  .modal             { padding:28px; }
+
+  .stats-row         { gap:20px; }
+  .stat-num          { font-size:2rem; }
+
+  .timeline          { padding-left:44px; }
+  .step-number       { left:-42px; width:30px; height:30px; font-size:0.7rem; }
+
+  .voice-panel       { width:280px; }
+
+  .recipe-title-big  { font-size:2.2rem; }
+
+  .back-btn-fixed    { padding:8px 14px; font-size:0.75rem; }
+
+  .section           { padding:60px 4%; }
+
+  .browse-header     { padding-top:60px; }
+
+  .ing-grid          { grid-template-columns:1fr; }
+
+  .about-features    { grid-template-columns:1fr; }
+}
+
+/* ─── Small mobile (≤ 380px) ─── */
+@media (max-width: 380px) {
+  .logo              { font-size:1.8rem; }
+  .hero-title        { font-size:2.5rem; }
+  .browse-grid       { grid-template-columns:1fr; }
+  .equip-grid        { grid-template-columns:1fr; }
+  .voice-panel       { width:260px; right:-10px; }
+}
+
+/* ─── Laptop large (≥ 1400px) ─── */
+@media (min-width: 1400px) {
+  .hero-content      { max-width:700px; }
+  .recipe-card       { flex:0 0 240px; }
+  .browse-grid       { grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); }
+}
