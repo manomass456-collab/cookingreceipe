@@ -1,4 +1,4 @@
-# CulinaShare 🍳
+# Cooker 🍳
 
 A modern, responsive cooking recipe website built with vanilla web technologies. Browse delicious meals, filter by category, and keep your kitchen organized.
 
