@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COOKER – Animated Recipe Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       LOADING SCREEN
+  ═══════════════════════════════════════════ -->
+  <div class="loading" id="loading">
+    <div class="loading-logo glitch">COOK<span>ER</span></div>
+    <div class="loading-bar"><div class="loading-fill"></div></div>
+    <div class="loading-text">Heating the pan...</div>
+  </div>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- PARTICLES -->
+  <div id="particles"></div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ═══════════════════════════════════════════
+       MOBILE NAV OVERLAY
+  ═══════════════════════════════════════════ -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+    <a href="#" onclick="closeMobileNav(); showSection('home')">Home</a>
+    <a href="#" onclick="closeMobileNav(); showSection('browse')">Browse</a>
+    <a href="#" onclick="closeMobileNav(); showSection('equipment')">Equipment</a>
+    <a href="#" onclick="closeMobileNav(); showSection('about')">About</a>
+    <a href="#" onclick="closeMobileNav(); openModal('login')" class="mobile-nav-login">Login</a>
+    <a href="#" onclick="closeMobileNav(); openModal('signup')" class="mobile-nav-signup">Sign Up</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <nav id="mainNav">
+    <a href="#" class="logo" onclick="showSection('home')">COOK<span>ER</span></a>
+
+    <ul class="nav-links">
+      <li><a href="#" onclick="showSection('home')">Home</a></li>
+      <li><a href="#" onclick="showSection('browse')">Browse by Dish</a></li>
+      <li><a href="#" onclick="showSection('equipment')">Equipment for Sale</a></li>
+      <li><a href="#" onclick="showSection('about')">About</a></li>
+    </ul>
+
+    <div class="nav-auth">
+      <button class="btn-login" onclick="openModal('login')">Login</button>
+      <button class="btn-signup" onclick="openModal('signup')">Sign Up</button>
+    </div>
+
+    <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HOME PAGE
+  ═══════════════════════════════════════════ -->
+  <div id="homePage" style="display:none; position:relative; z-index:1;">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+
+      <!-- Floating food particles -->
+      <div class="float-food" style="top:20%;left:5%;animation-delay:0s;">🌶️</div>
+      <div class="float-food" style="top:70%;left:8%;animation-delay:2s;font-size:1.5rem;">🧅</div>
+      <div class="float-food" style="top:30%;right:52%;animation-delay:4s;font-size:1.8rem;">🌿</div>
+      <div class="float-food" style="top:60%;right:55%;animation-delay:1.5s;font-size:1.4rem;">🧄</div>
+
+      <div class="hero-content">
+        <div class="hero-tag"><span class="dot"></span> 200+ Animated Recipes</div>
+        <h1 class="hero-title">
+          <span class="line1">TASTE</span><br>
+          <span class="line2">THE ART</span><br>
+          <span class="line3">OF INDIA</span>
+        </h1>
+        <p class="hero-desc">
+          Step-by-step animated recipes from every corner of India.
+          Watch dishes come to life, guided by your AI sous-chef.
+        </p>
+        <div class="hero-cta">
+          <button class="cta-primary" onclick="showSection('browse')">
+            <span>&#9654;</span> Explore Recipes
+          </button>
+          <button class="cta-secondary" onclick="showSection('about')">
+            <span>&#9432;</span> How It Works
+          </button>
+        </div>
+      </div>
+
+      <!-- Hero video / 3D dish visual -->
+      <div class="hero-visual">
+        <!--
+          HERO VIDEO — place a 2-5 sec looping cooking video here.
+          Replace "images/hero/hero-video.mp4" with your video file path.
+          Supported: .mp4, .webm
+          Recommended size: 800x800px or 1:1 ratio
+        -->
+        <div class="hero-video-container">
+          <video
+            id="heroVideo"
+            autoplay
+            muted
+            loop
+            playsinline
+            class="hero-video"
+            poster="images/hero/hero-poster.jpg"
+          >
+            <!-- Add your video source below -->
+            <source src="images/hero/hero-video.mp4" type="video/mp4" />
+            <source src="images/hero/hero-video.webm" type="video/webm" />
+            <!-- Fallback if video not found -->
+          </video>
+          <!-- Fallback dish shown if video fails to load 
+          <div class="dish-fallback" id="dishFallback">
+            <div class="dish-scene">
+              <div class="dish-plate">
+                <div class="dish-food"></div>
+              </div>
+              <div class="steam-wrap">
+                <div class="steam-line"></div>
+                <div class="steam-line"></div>
+                <div class="steam-line"></div>
+              </div>
+            </div>
+          </div> -->
+          <div class="hero-video-ring"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRENDING -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">🔥 <span class="accent">TRENDING</span> RECIPES</h2>
+        <a href="#" class="see-all" onclick="showSection('browse')">See All &rarr;</a>
+      </div>
+      <div class="cards-row" id="trendingRow"></div>
+    </section>
+
+    <!-- POPULAR -->
+    <section class="section" style="padding-top:0;">
+      <div class="section-header">
+        <h2 class="section-title">&#9733; <span class="accent">POPULAR</span> PICKS</h2>
+        <a href="#" class="see-all" onclick="showSection('browse')">See All &rarr;</a>
+      </div>
+      <div class="cards-row" id="popularRow"></div>
+    </section>
+
+    <!-- FEATURED TODAY -->
+    <section class="section" style="padding-top:0;">
+      <div class="section-header">
+        <h2 class="section-title">&#127909; <span class="accent">FEATURED</span> TODAY</h2>
+      </div>
+      <div class="big-cards-grid" id="featuredGrid"></div>
+    </section>
+
+    <!-- BY STATE -->
+    <section class="section" style="padding-top:0;">
+      <div class="section-header">
+        <h2 class="section-title">&#128506; <span class="accent">BY STATE</span></h2>
+      </div>
+      <div class="states-grid" id="statesGrid"></div>
+    </section>
+
+    <!-- QUICK & EASY -->
+    <section class="section" style="padding-top:0;">
+      <div class="section-header">
+        <h2 class="section-title">&#129367; <span class="accent">QUICK</span> &amp; EASY</h2>
+        <a href="#" class="see-all" onclick="showSection('browse')">See All &rarr;</a>
+      </div>
+      <div class="cards-row" id="quickRow"></div>
+    </section>
+
+    <!-- FESTIVE SPECIALS -->
+    <section class="section" style="padding-top:0;">
+      <div class="section-header">
+        <h2 class="section-title">&#127881; <span class="accent">FESTIVE</span> SPECIALS</h2>
+        <a href="#" class="see-all" onclick="showSection('browse')">See All &rarr;</a>
+      </div>
+      <div class="cards-row" id="festiveRow"></div>
+    </section>
+
+  </div><!-- end #homePage -->
+
+  <!-- ═══════════════════════════════════════════
+       BROWSE PAGE
+  ═══════════════════════════════════════════ -->
+  <div class="page-section" id="browsePage">
+    <button class="back-btn-fixed" onclick="showSection('home')">&#8592; Back</button>
+    <div class="browse-header">
+      <h1 class="browse-title glitch">BROWSE <span class="red">DISHES</span></h1>
+      <div class="search-bar">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search recipes, states, categories..." oninput="filterRecipes()" />
+        <span class="search-icon">&#128269;</span>
+      </div>
+      <div class="filter-chips" id="filterChips"></div>
+    </div>
+    <div class="browse-grid" id="browseGrid"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       EQUIPMENT PAGE
+  ═══════════════════════════════════════════ -->
+  <div class="page-section" id="equipPage">
+    <button class="back-btn-fixed" onclick="showSection('home')">&#8592; Back</button>
+    <div class="browse-header">
+      <h1 class="browse-title">KITCHEN <span class="red">GEAR</span></h1>
+      <p class="browse-sub">Everything you need to cook like a pro</p>
+    </div>
+    <div class="equip-grid" id="equipGrid"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       ABOUT PAGE
+  ═══════════════════════════════════════════ -->
+  <div class="page-section" id="aboutPage">
+    <button class="back-btn-fixed" onclick="showSection('home')">&#8592; Back</button>
+    <div class="about-hero">
+      <h1 class="about-title glitch">ABOUT <span class="red">COOKER</span></h1>
+      <p class="about-desc">
+        India's first animated recipe experience. Bringing dishes to life with
+        step-by-step animations, voice guidance, and an AI sous-chef.
+      </p>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Recipes</div></div>
+        <div class="stat"><div class="stat-num">28</div><div class="stat-label">States</div></div>
+        <div class="stat"><div class="stat-num">1M+</div><div class="stat-label">Cooks</div></div>
+        <div class="stat"><div class="stat-num">4.9&#9733;</div><div class="stat-label">Rating</div></div>
+      </div>
+    </div>
+    <div class="about-features">
+      <div class="about-feature-card">
+        <div class="about-feature-icon">&#127909;</div>
+        <h3>3D Animations</h3>
+        <p>Watch every cooking step come alive with beautiful animations.</p>
+      </div>
+      <div class="about-feature-card">
+        <div class="about-feature-icon">&#127897;</div>
+        <h3>Voice Agent</h3>
+        <p>Your AI sous-chef guides you through every step in real-time.</p>
+      </div>
+      <div class="about-feature-card">
+        <div class="about-feature-icon">&#9878;</div>
+        <h3>Precise Measurements</h3>
+        <p>Exact grams, litres, and timing so your dish turns out perfect.</p>
+      </div>
+      <div class="about-feature-card">
+        <div class="about-feature-icon">&#128506;</div>
+        <h3>State Recipes</h3>
+        <p>Authentic recipes from all 28 Indian states.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       RECIPE DETAIL PAGE
+  ═══════════════════════════════════════════ -->
+  <div class="page" id="recipePage">
+    <button class="back-btn" onclick="closeRecipePage()">&#8592; Back</button>
+
+    <div class="page-hero" id="recipeHero">
+      <div class="page-hero-bg" id="recipeHeroBg"></div>
+      <div class="page-hero-content">
+        <div class="recipe-meta-row" id="recipeMetaRow"></div>
+        <h1 class="recipe-title-big" id="recipeTitleBig"></h1>
+        <div class="recipe-actions">
+          <button class="btn-start" id="cookNowBtn">&#9654; Cook Now</button>
+          <button class="cta-secondary" onclick="toggleVoicePanel()">&#127897; Ask Chef AI</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="recipe-body">
+      <div class="ingredients-section" id="ingredientsSection"></div>
+      <div class="steps-section" id="stepsSection"></div>
+      <div class="ingredients-section" id="nutritionSection" style="margin-bottom:3rem;"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       VOICE AGENT (AI Chef)
+  ═══════════════════════════════════════════ -->
+  <div class="voice-agent" id="voiceAgent">
+    <div class="voice-panel" id="voicePanel">
+      <div class="voice-header">
+        <span class="voice-title">&#127859; CHEF AI</span>
+        <button class="voice-close" onclick="toggleVoicePanel()">&#10005;</button>
+      </div>
+      <div class="voice-messages" id="voiceMessages">
+        <div class="voice-msg ai">
+          &#128104;&#8205;&#127859; Namaste! I'm your AI sous-chef. Ask me anything about cooking —
+          substitutions, techniques, timing, or any recipe!
+        </div>
+      </div>
+      <div class="voice-input-row">
+        <input
+          type="text"
+          class="voice-input"
+          id="voiceInput"
+          placeholder="Ask me anything..."
+          onkeydown="if(event.key==='Enter') sendVoiceMsg()"
+        />
+        <button class="voice-send" onclick="sendVoiceMsg()">&#10148;</button>
+      </div>
+    </div>
+    <button class="voice-btn" onclick="toggleVoicePanel()">
+      &#127897;
+      <div class="voice-ring"></div>
+      <div class="voice-ring2"></div>
+    </button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       MODALS
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('loginModal')">&#10005;</button>
+      <div class="modal-title">LOGIN</div>
+      <div class="modal-sub">Welcome back, chef! &#128104;&#8205;&#127859;</div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="chef@cooker.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" placeholder="••••••••" />
+      </div>
+      <button class="form-btn" onclick="fakeLogin()">LOGIN &rarr;</button>
+      <div class="modal-switch">
+        Don't have an account?
+        <a href="#" onclick="switchModal('signupModal')">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="signupModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('signupModal')">&#10005;</button>
+      <div class="modal-title">JOIN US</div>
+      <div class="modal-sub">Start your culinary journey &#127798;</div>
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-input" placeholder="Your Name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="chef@cooker.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" placeholder="••••••••" />
+      </div>
+      <button class="form-btn" onclick="fakeLogin()">CREATE ACCOUNT &rarr;</button>
+      <div class="modal-switch">
+        Already have an account?
+        <a href="#" onclick="switchModal('loginModal')">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS — loaded in order -->
+  <script src="js/data/recipes.js"></script>
+  <script src="js/data/states.js"></script>
+  <script src="js/data/equipment.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
